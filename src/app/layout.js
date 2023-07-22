@@ -13,11 +13,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col flex-1 w-screen h-screen">
-          <header className="flex flex-1 items-center px-6">
+          <header className="flex flex-1 items-center px-6 border-b border-black border-solid">
             <h1>Reflection</h1>
           </header>
           <main className="flex flex-5">
-            <aside className="flex flex-1">
+            <aside className="flex flex-1 border-r border-black border-solid">
               <nav></nav>
             </aside>
             <section className="flex flex-3">{children}</section>
