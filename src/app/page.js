@@ -32,7 +32,7 @@ export default function Home() {
     <main className="flex flex-col flex-1 p-4 w-100">
       <section className="flex flex-col justify-center gap-8">
         <div className="flex justify-center items-center">
-          <h1>Add a reflection</h1>
+          <div className="text-4xl">Add a reflection</div>
         </div>
         <div className="flex justify-evenly items-start">
           <div className="p-2">
@@ -67,8 +67,15 @@ export default function Home() {
             </span>
           </button>
         </div>
-        <button>Add Reflection</button>
-
+        <div className="flex justify-center">
+          <button
+            className={
+              "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95"
+            }
+          >
+            Add
+          </button>
+        </div>
         <CustomModal
           isOpen={isOpen}
           afterOpenModal={afterOpenModal}
