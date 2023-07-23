@@ -33,7 +33,7 @@ export default function CustomModal({ isOpen, afterOpenModal, closeModal }) {
           </button>
         </div>
 
-        <div>I am a modal</div>
+        <div></div>
       </div>
     </Modal>
   );
