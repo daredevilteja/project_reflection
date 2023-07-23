@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -18,7 +19,17 @@ export default function RootLayout({ children }) {
           </header>
           <section className="flex flex-5">
             <aside className="flex flex-1 border-r border-black border-solid">
-              <nav></nav>
+              <nav>
+                <ul>
+                  <li>
+                    <Link href="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link href="/statistics">Statistics</Link>
+                  </li>
+                  <li>Contact</li>
+                </ul>
+              </nav>
             </aside>
             <section className="flex flex-3">{children}</section>
           </section>
