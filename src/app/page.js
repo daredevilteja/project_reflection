@@ -9,6 +9,7 @@ export default function Home() {
   const [selectedOption, setSelectedOption] = useState("");
   const [reflection, setReflection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [totalReflections, setTotalReflections] = useState([]);
 
   function openModal() {
     setIsOpen(true);
@@ -26,6 +27,22 @@ export default function Home() {
 
   const handleReflectionChange = (e) => {
     setReflection(e.target.value);
+  };
+
+  const addReflection = () => {
+    const currDate = new Date();
+    const month = currDate.getMonth();
+    const day = currDate.getDate();
+    const year = currDate.getFullYear();
+    const time = currDate.getTime();
+    let currReflection = {
+      data: reflection,
+      date: `${day}-${month}-${year}`,
+      time: time,
+    };
+
+    totalReflections.unshift(currReflection);
+    setTotalReflections([...totalReflections]);
   };
 
   return (
@@ -72,6 +89,7 @@ export default function Home() {
             className={
               "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95"
             }
+            onClick={addReflection}
           >
             Add
           </button>
