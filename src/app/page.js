@@ -89,7 +89,10 @@ export default function Home() {
             className={
               "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95"
             }
-            onClick={addReflection}
+            onClick={() => {
+              addReflection();
+              setReflection("");
+            }}
           >
             Add
           </button>
