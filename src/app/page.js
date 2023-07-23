@@ -100,7 +100,12 @@ export default function Home() {
           closeModal={closeModal}
         />
       </section>
-      <section></section>
+      <section className="flex flex-col gap-8 p-2 ">
+        <div>Previous Reflections</div>
+        {totalReflections.map((val, idx) => (
+          <div key={idx}>{val.data}</div>
+        ))}
+      </section>
       <Tooltip id="help-tooltip" />
       <Tooltip id="select-level-tooltip" />
     </main>
