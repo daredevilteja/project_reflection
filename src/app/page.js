@@ -1,10 +1,23 @@
 "use client";
 
+import CustomModal from "@/components/CustomModal";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
   const [selectedOption, setSelectedOption] = useState("");
   const [reflection, setReflection] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {}
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -32,8 +45,22 @@ export default function Home() {
             className="rounded p-2"
             placeholder="Enter your reflection"
           />
+          <button onClick={openModal}>
+            <Image
+              src={"/infoIcon.svg"}
+              width={30}
+              height={30}
+              alt={"Info Icon"}
+            />
+          </button>
         </div>
         <button>Add Reflection</button>
+
+        <CustomModal
+          isOpen={isOpen}
+          afterOpenModal={afterOpenModal}
+          closeModal={closeModal}
+        />
       </section>
       <section></section>
     </main>
