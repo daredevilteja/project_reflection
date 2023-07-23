@@ -3,6 +3,7 @@
 import CustomModal from "@/components/CustomModal";
 import Image from "next/image";
 import { useState } from "react";
+import { Tooltip } from "react-tooltip";
 
 export default function Home() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -33,25 +34,37 @@ export default function Home() {
         <div className="flex justify-center items-center">
           <h1>Add a reflection</h1>
         </div>
-        <div className="flex justify-evenly items-center w-100vw">
-          <select value={selectedOption} onChange={handleOptionChange}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
+        <div className="flex justify-evenly items-start">
+          <div className="p-2">
+            <span
+              data-tooltip-id="select-level-tooltip"
+              data-tooltip-content="Select the level of deep listening"
+            >
+              <select value={selectedOption} onChange={handleOptionChange}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </span>
+          </div>
           <textarea
             value={reflection}
             onChange={handleReflectionChange}
-            className="rounded p-2"
+            className="rounded p-2 w-[50vw] h-[20vh]"
             placeholder="Enter your reflection"
           />
-          <button onClick={openModal}>
-            <Image
-              src={"/infoIcon.svg"}
-              width={30}
-              height={30}
-              alt={"Info Icon"}
-            />
+          <button onClick={openModal} className="p-2">
+            <span
+              data-tooltip-id="help-tooltip"
+              data-tooltip-content="Click for more info"
+            >
+              <Image
+                src={"/infoIcon.svg"}
+                width={25}
+                height={25}
+                alt={"Info Icon"}
+              />
+            </span>
           </button>
         </div>
         <button>Add Reflection</button>
@@ -63,6 +76,8 @@ export default function Home() {
         />
       </section>
       <section></section>
+      <Tooltip id="help-tooltip" />
+      <Tooltip id="select-level-tooltip" />
     </main>
   );
 }
