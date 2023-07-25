@@ -41,6 +41,7 @@ export default function HomeComponent({ createReflection, data }) {
 
     try {
       createReflection({
+        reflectionLevel: selectedOption,
         reflection: reflection,
         date: `${day}-${month}-${year}`,
         time: time,
@@ -50,7 +51,7 @@ export default function HomeComponent({ createReflection, data }) {
     }
   };
   return (
-    <main className="flex flex-col flex-1 p-4 w-100">
+    <main className="flex flex-col flex-1 p-4 w-100 gap-8">
       <section className="flex flex-col justify-center gap-8">
         <div className="flex justify-center items-center">
           <div className="text-4xl">Add a reflection</div>
