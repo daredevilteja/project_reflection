@@ -51,7 +51,7 @@ export default function HomeComponent({ createReflection, data }) {
     }
   };
   return (
-    <main className="flex flex-col flex-1 p-4 w-100 bg-gray-200">
+    <main className="flex flex-col flex-1 gap-4 p-4 w-100 bg-gray-200">
       <motion.section
         className="flex flex-col justify-center gap-8"
         initial={{ opacity: 0, y: -20 }}
@@ -110,7 +110,7 @@ export default function HomeComponent({ createReflection, data }) {
         <div className="flex justify-center">
           <motion.button
             className={
-              "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95"
+              "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95 shadow-md transform hover:scale-105"
             }
             onClick={async () => {
               await addReflection();
@@ -127,13 +127,20 @@ export default function HomeComponent({ createReflection, data }) {
           closeModal={closeModal}
         />
       </motion.section>
-      <section className="flex flex-col gap-6 p-2 h-[40vh] w-[80vw]">
-        <div>Previous Reflections</div>
+      <motion.section
+        className="flex flex-col gap-6 p-2 h-[40vh] w-[80vw]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="text-3xl text-blue-600 text-center">
+          Previous Reflections
+        </div>
         <div className="flex flex-col h-[40vh] overflow-y-auto gap-6">
           {cardData.map((val, idx) => (
             <div
               key={idx}
-              className="flex flex-row justify-between items-center px-6 py-2 border border-black/40 rounded gap-4"
+              className="flex flex-row justify-between items-center px-6 py-2 border border-black/40 rounded bg-white shadow-lg"
             >
               <div className="flex flex-col justify-center items-center">
                 <span className="truncate max-w-[10rem]">
@@ -152,7 +159,7 @@ export default function HomeComponent({ createReflection, data }) {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
       <Tooltip id="help-tooltip" />
       <Tooltip id="select-level-tooltip" />
     </main>
