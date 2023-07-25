@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 
 export default function HomeComponent({ createReflection, data }) {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("1");
   const [reflection, setReflection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [cardData, setCardData] = useState([]);
