@@ -97,6 +97,7 @@ export default function HomeComponent({ createReflection, data }) {
             onClick={async () => {
               await addReflection();
               setReflection("");
+              setSelectedOption("1");
             }}
           >
             Add
@@ -108,11 +109,31 @@ export default function HomeComponent({ createReflection, data }) {
           closeModal={closeModal}
         />
       </section>
-      <section className="flex flex-col gap-8 p-2 ">
+      <section className="flex flex-col gap-6 p-2 h-[40vh] w-[80vw]">
         <div>Previous Reflections</div>
-        {cardData.map((val, idx) => (
-          <div key={idx}>{val.reflection}</div>
-        ))}
+        <div className="flex flex-col h-[40vh] overflow-y-auto gap-6">
+          {cardData.map((val, idx) => (
+            <div
+              key={idx}
+              className="flex flex-row justify-between items-center px-6 py-2 border border-black/40 rounded gap-4"
+            >
+              <div className="flex flex-col justify-center items-center">
+                <span className="truncate max-w-[10rem]">
+                  {val.reflectionLevel}
+                </span>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <span className="truncate max-w-[10rem]">{val.reflection}</span>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <span className="truncate max-w-[10rem]">{val.date}</span>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <span className="truncate max-w-[10rem]">{val.time}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
       <Tooltip id="help-tooltip" />
       <Tooltip id="select-level-tooltip" />
