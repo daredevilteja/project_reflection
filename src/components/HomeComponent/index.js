@@ -4,9 +4,10 @@ import CustomModal from "@/components/CustomModal";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
+import { motion } from "framer-motion";
 
 export default function HomeComponent({ createReflection, data }) {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("1");
   const [reflection, setReflection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [cardData, setCardData] = useState([]);
@@ -23,7 +24,6 @@ export default function HomeComponent({ createReflection, data }) {
   function closeModal() {
     setIsOpen(false);
   }
-
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
   };
@@ -51,10 +51,15 @@ export default function HomeComponent({ createReflection, data }) {
     }
   };
   return (
-    <main className="flex flex-col flex-1 p-4 w-100">
-      <section className="flex flex-col justify-center gap-8">
-        <div className="flex justify-center items-center">
-          <div className="text-4xl">Add a reflection</div>
+    <main className="flex flex-col flex-1 gap-4 p-4 w-100 bg-gray-200">
+      <motion.section
+        className="flex flex-col justify-center gap-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex justify-center items-center text-3xl text-blue-600">
+          Add a reflection
         </div>
         <div className="flex justify-evenly items-start">
           <div className="p-2">
@@ -62,20 +67,33 @@ export default function HomeComponent({ createReflection, data }) {
               data-tooltip-id="select-level-tooltip"
               data-tooltip-content="Select the level of deep listening"
             >
-              <select value={selectedOption} onChange={handleOptionChange}>
+              <motion.select
+                value={selectedOption}
+                onChange={handleOptionChange}
+                className="bg-yellow-200 rounded p-2 whimsical-select"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-              </select>
+              </motion.select>
             </span>
           </div>
-          <textarea
+          <motion.textarea
             value={reflection}
             onChange={handleReflectionChange}
-            className="rounded p-2 w-[50vw] h-[20vh]"
+            className="rounded p-2 w-[50vw] h-[20vh] border-2 border-green-500 whimsical-textarea"
             placeholder="Enter your reflection"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           />
-          <button onClick={openModal} className="p-2">
+          <motion.button
+            onClick={openModal}
+            className="p-2 rounded hover:bg-purple-600 whimsical-button"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
             <span
               data-tooltip-id="help-tooltip"
               data-tooltip-content="Click for more info"
@@ -87,12 +105,12 @@ export default function HomeComponent({ createReflection, data }) {
                 alt={"Info Icon"}
               />
             </span>
-          </button>
+          </motion.button>
         </div>
         <div className="flex justify-center">
-          <button
+          <motion.button
             className={
-              "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95"
+              "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95 shadow-md transform hover:scale-105"
             }
             onClick={async () => {
               await addReflection();
@@ -101,21 +119,28 @@ export default function HomeComponent({ createReflection, data }) {
             }}
           >
             Add
-          </button>
+          </motion.button>
         </div>
         <CustomModal
           isOpen={isOpen}
           afterOpenModal={afterOpenModal}
           closeModal={closeModal}
         />
-      </section>
-      <section className="flex flex-col gap-6 p-2 h-[40vh] w-[80vw]">
-        <div>Previous Reflections</div>
+      </motion.section>
+      <motion.section
+        className="flex flex-col gap-6 p-2 h-[40vh] w-[80vw]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="text-3xl text-blue-600 text-center">
+          Previous Reflections
+        </div>
         <div className="flex flex-col h-[40vh] overflow-y-auto gap-6">
           {cardData.map((val, idx) => (
             <div
               key={idx}
-              className="flex flex-row justify-between items-center px-6 py-2 border border-black/40 rounded gap-4"
+              className="flex flex-row justify-between items-center px-6 py-2 border border-black/40 rounded bg-white shadow-lg"
             >
               <div className="flex flex-col justify-center items-center">
                 <span className="truncate max-w-[10rem]">
@@ -134,7 +159,7 @@ export default function HomeComponent({ createReflection, data }) {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
       <Tooltip id="help-tooltip" />
       <Tooltip id="select-level-tooltip" />
     </main>
