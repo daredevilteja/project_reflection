@@ -41,7 +41,6 @@ export default function HomeComponent({ createReflection, data }) {
 
     try {
       createReflection({
-        reflectionLevel: selectedOption,
         reflection: reflection,
         date: `${day}-${month}-${year}`,
         time: time,
@@ -51,12 +50,10 @@ export default function HomeComponent({ createReflection, data }) {
     }
   };
   return (
-    <main className="flex flex-col flex-1 p-4 w-100 gap-8 retro-stylish">
+    <main className="flex flex-col flex-1 p-4 w-100">
       <section className="flex flex-col justify-center gap-8">
         <div className="flex justify-center items-center">
-          <div className="text-4xl text-purple-500 font-bold animate-pulse">
-            Add a reflection
-          </div>
+          <div className="text-4xl">Add a reflection</div>
         </div>
         <div className="flex justify-evenly items-start">
           <div className="p-2">
@@ -64,11 +61,7 @@ export default function HomeComponent({ createReflection, data }) {
               data-tooltip-id="select-level-tooltip"
               data-tooltip-content="Select the level of deep listening"
             >
-              <select
-                value={selectedOption}
-                onChange={handleOptionChange}
-                className="bg-yellow-300 rounded-md p-2 animate-bounce"
-              >
+              <select value={selectedOption} onChange={handleOptionChange}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -78,10 +71,10 @@ export default function HomeComponent({ createReflection, data }) {
           <textarea
             value={reflection}
             onChange={handleReflectionChange}
-            className="rounded p-2 w-[50vw] h-[20vh] bg-pink-200 animate-pulse"
+            className="rounded p-2 w-[50vw] h-[20vh]"
             placeholder="Enter your reflection"
           />
-          <button onClick={openModal} className="p-2 bg-green-400 rounded-md animate-bounce">
+          <button onClick={openModal} className="p-2">
             <span
               data-tooltip-id="help-tooltip"
               data-tooltip-content="Click for more info"
@@ -114,10 +107,8 @@ export default function HomeComponent({ createReflection, data }) {
           closeModal={closeModal}
         />
       </section>
-      <section className="flex flex-col gap-8 p-2">
-        <div className="flex justify-center items-center text-3xl">
-          <span>Previous Reflections</span>
-        </div>
+      <section className="flex flex-col gap-8 p-2 ">
+        <div>Previous Reflections</div>
         {cardData.map((val, idx) => (
           <div key={idx}>{val.reflection}</div>
         ))}
