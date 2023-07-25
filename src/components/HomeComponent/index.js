@@ -41,6 +41,7 @@ export default function HomeComponent({ createReflection, data }) {
 
     try {
       createReflection({
+        reflectionLevel: Number(selectedOption),
         reflection: reflection,
         date: `${day}-${month}-${year}`,
         time: time,
