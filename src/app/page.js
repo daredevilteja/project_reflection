@@ -1,116 +1,36 @@
-"use client";
+import HomeComponent from "@/components/HomeComponent";
+import { PrismaClient } from "@prisma/client";
 
-import CustomModal from "@/components/CustomModal";
-import Image from "next/image";
-import { useState } from "react";
-import { Tooltip } from "react-tooltip";
+const prisma = new PrismaClient();
 
-export default function Home() {
-  const [selectedOption, setSelectedOption] = useState("");
-  const [reflection, setReflection] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [totalReflections, setTotalReflections] = useState([]);
+async function getData() {
+  const reflections = await prisma.reflectionList.findMany();
 
-  function openModal() {
-    setIsOpen(true);
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
   }
 
-  function afterOpenModal() {}
+  return res.json();
+}
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
+export default async function Home() {
+  const displayReflections = async () => {
+    "use server";
+    const items = await prisma.reflectionList.findMany();
+    return items;
   };
-
-  const handleReflectionChange = (e) => {
-    setReflection(e.target.value);
+  const createReflection = async (val) => {
+    "use server";
+    await prisma.reflectionList.create({
+      data: val,
+    });
   };
-
-  const addReflection = () => {
-    const currDate = new Date();
-    const month = currDate.getMonth();
-    const day = currDate.getDate();
-    const year = currDate.getFullYear();
-    const time = currDate.getTime();
-    let currReflection = {
-      data: reflection,
-      date: `${day}-${month}-${year}`,
-      time: time,
-    };
-
-    totalReflections.unshift(currReflection);
-    setTotalReflections([...totalReflections]);
-  };
-
   return (
-    <main className="flex flex-col flex-1 p-4 w-100">
-      <section className="flex flex-col justify-center gap-8">
-        <div className="flex justify-center items-center">
-          <div className="text-4xl">Add a reflection</div>
-        </div>
-        <div className="flex justify-evenly items-start">
-          <div className="p-2">
-            <span
-              data-tooltip-id="select-level-tooltip"
-              data-tooltip-content="Select the level of deep listening"
-            >
-              <select value={selectedOption} onChange={handleOptionChange}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </span>
-          </div>
-          <textarea
-            value={reflection}
-            onChange={handleReflectionChange}
-            className="rounded p-2 w-[50vw] h-[20vh]"
-            placeholder="Enter your reflection"
-          />
-          <button onClick={openModal} className="p-2">
-            <span
-              data-tooltip-id="help-tooltip"
-              data-tooltip-content="Click for more info"
-            >
-              <Image
-                src={"/infoIcon.svg"}
-                width={25}
-                height={25}
-                alt={"Info Icon"}
-              />
-            </span>
-          </button>
-        </div>
-        <div className="flex justify-center">
-          <button
-            className={
-              "p-2 rounded border border-black/50 bg-white hover:ring-2 hover:ring-blue-500/50 hover:bg-indigo-600 hover:border-transparent hover:text-white/95"
-            }
-            onClick={() => {
-              addReflection();
-              setReflection("");
-            }}
-          >
-            Add
-          </button>
-        </div>
-        <CustomModal
-          isOpen={isOpen}
-          afterOpenModal={afterOpenModal}
-          closeModal={closeModal}
-        />
-      </section>
-      <section className="flex flex-col gap-8 p-2 ">
-        <div>Previous Reflections</div>
-        {totalReflections.map((val, idx) => (
-          <div key={idx}>{val.data}</div>
-        ))}
-      </section>
-      <Tooltip id="help-tooltip" />
-      <Tooltip id="select-level-tooltip" />
-    </main>
+    <HomeComponent
+      data={displayReflections}
+      createReflection={createReflection}
+    />
   );
 }
