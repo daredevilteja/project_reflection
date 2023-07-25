@@ -14,10 +14,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={glory.className}>
         <div className="flex flex-col flex-1 w-screen h-screen">
-          <header className="flex flex-1 items-center px-6 border-b border-black border-solid">
+          <header className="flex flex-1 items-center px-6 border-b border-black border-solid h-[10vh]">
             <h1>Reflection</h1>
           </header>
-          <section className="flex flex-5">
+          <section className="flex flex-5 h-[90vh]">
             <aside className="flex flex-1 border-r border-black border-solid">
               <nav>
                 <ul>
